@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>登录</title>
+<link rel="stylesheet" href="./css/login.css">
+</head>
+<body>
+<section class="login">
+    <h6 style="padding-top:100px;text-indent:5em">*注： 账号为admin,密码： 123</h6>
+  <h1>登录</h1>
+  <section class="input_content">
+    <article class="user_pwd">
+      <label for="">用户名:</label>
+      <input type="text" placeholder="请输入用户名" name="userName" id="userName" onblur="handleBlurUser()" style="padding:5px">
+   </article>
+   <article class="user_pwd">
+     <label for="">密  码:</label>
+     <input type="password" placeholder="请输入密码" name="password" id="password" onblur="handleBlurPwd()" style="padding:5px">
+  </article>
+  <article class="login_button">
+   <div id="login_button_text" onclick="handleLogin()">登录</div>
+   <div id="login_button_text" class="login_button_text_rg" style="display:none" >注册</div>
+  </article>
+  </section>
+</section>
+</body>
+<script src="./comm.js"></script>
+<script>
+
+function handleBlurUser(e) {
+  var obj = new Login('userName',$('userName').value, 'admin', 'green', 'yellow');
+  obj.handleCheck(); //通过构造函数调用
+  $('userName').value === 'admin' ? $el('login_button_text_rg')[0].style.display='none' : $el('login_button_text_rg')[0].style.display='block';
+}
+function handleBlurPwd(e) {
+  var obj = new Login('password', $('password').value, '123', '#999', 'red');
+  obj.handleCheck();
+}
+ 
+ /*
+ *
+@param obj: 当前获取的dom节点
+@param name: 用户输入的账号
+@param val: 正确的账号或者密码的值
+@param color: 当前input成功的颜色
+@param errorColor: 当前input失败的颜色
+
+ * */
+ class Login {
+    constructor(obj, name, val,color,errorColor){
+      this.obj = obj;
+      this.name = name;
+      this.val = val;
+      this.color = color;
+      this.errorColor = errorColor;
+    }
+    handleCheck() {
+      if(this.name ===this.val) {
+        $(this.obj).style.border= `1px solid ${this.color}`
+        $(this.obj).style.animation= 'ok .4s';
+      } else {
+        $(this.obj).style.border= `1px solid ${this.errorColor}`
+        $(this.obj).style.animation= 'error .4s';
+      }
+    }
+
+ }
+
+ function handleLogin() {
+   if($('userName').value === 'admin' && $('password').value === '123') {
+    window.location="img.html";
+   } else {
+     alert('请填写正确的账号或者密码');
+   }
+ }
+</script>
+</html>

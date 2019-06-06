@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>图片查看,视频播放</title>
+  <style>
+  section.watchImg{
+    margin:50px 0 20px 0;
+  }
+  </style>
+</head>
+<body>
+  <section>
+    <!-- 视频 -->
+    <section class="video" onclick="handleJump()">    
+      <div class="Triangle_bg">
+         <img src="./img/suspend.png" alt="">
+      </div>
+      <img src="https://puui.qpic.cn/qqvideo_ori/0/e07507m43o4_496_280/0" alt="">
+      <span class="time">0:00:10</span>
+    </section>
+    <!-- 视频 -->
+    <!-- 图片 -->
+    <section class="watchImg">图片查看</section>  
+    <div class="img-border">
+        <div class="form-horizontal clear-float" id="imgList">
+        </div>
+    </div>
+ 
+    <div id="imgView"></div>
+    <!-- 图片 -->
+  </section>
+
+</body>
+<script src="./comm.js"></script>
+<script src="./js.js"></script>
+<script>
+ function handleJump() { /*跳转到原视频地址*/
+  location.href="https://v.qq.com/x/page/e07507m43o4.html";
+ }
+ 
+ var dataList = ["./img/1.jpg", "./img/2.jpg",
+            "./img/3.jpg", "./img/4.jpg"
+        ];
+        var currentSrc = "";
+        var html = "";
+        var index = 0;
+        var imgList = document.getElementById("imgList");
+        for (var i = 0; i < dataList.length; i++) {
+            var nameList = dataList[i].split("/");
+            html += "<div class='col-md-3'><div class='img-div'><img class='img-item' src=" + dataList[i] + " /></div></div>"
+        }
+        imgList.innerHTML = html;
+        var imgItem = document.getElementsByClassName("img-item");
+        for (var j = 0; j < imgItem.length; j++) {
+            imgItem[j].index = j;
+            imgItem[j].addEventListener("click", function(event) {
+                var i = this.index;
+                var src = event.target.attributes[1].value;
+                var options = {
+                    dataList: dataList,
+                    currentSrc: src
+                };
+                ImgView("imgView", options);
+            })
+        }
+</script>
+</html>
